@@ -1,10 +1,10 @@
 // first thing is set an initial state in the reducer file,
 // this state need to be an object that store the data we need it to be global so we can use it in any component
 const initialState = {
-  token: "",
+  token: null,
 };
 // second we need to write a reducer function that take 2 argument: initialState, action
-const logIn = (state = initialState, action) => {
+const logInReducer = (state = initialState, action) => {
   const { type, payload } = action;
   // after google it..
   //payload: is the actual information or message in transmitted data, as opposed to automatically generated metadata.
@@ -16,13 +16,15 @@ const logIn = (state = initialState, action) => {
 
     case "LOGOUT":
       localStorage.clear();
-      return { token: "" };
+      return { token: null };
 
     default:
-      return state; //default = initial state
+      const tokenStorage = localStorage.getItem("token");
+      if (tokenStorage) return { token: tokenStorage };
+      else return state; //default = initial state
   }
 };
-export default logIn; // export default so we can use it anywhere we need
+export default logInReducer; // export default so we can use it anywhere we need
 
 // after that we need to define a function to each case that take data as an argument
 // this function return action = {type: case, payload: data}

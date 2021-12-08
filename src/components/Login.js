@@ -9,16 +9,14 @@ const BASE_URL = process.env.REACT_APP_BASE_URL;
 const Login = () => {
   const state = useSelector((state) => {
     return {
-      login: state,
+      logInReducer: state.logInReducer,
     };
   });
-  // console.log(state, "state");
+  
   const dispatch = useDispatch();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const [token, setToken] = useState("");
-  // const [role, setRole] = useState("61a5fa9876f9a6e781a67319");
   const navigate = useNavigate();
 
   const signIn = async () => {
@@ -28,30 +26,24 @@ const Login = () => {
         {
           email,
           password,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${state.logInReducer.token}`,
+          },
         }
-        // {
-        //   headers: {
-        //     Authorization: `Bearer ${token}`,
-        //   },
-        // }
       );
-      // console.log(result.data.token);
-      // setToken(result.data.token);
-      // localStorage.setItem("token", token);
       const data = {
-        user: result.data.result,
         token: result.data.token,
       };
 
       dispatch(login(data));
       navigate("/home");
-
     } catch (error) {
       console.log(error);
     }
   };
 
-  // if the user does not have an account
   const toRegister = () => {
     navigate("/register");
   };
