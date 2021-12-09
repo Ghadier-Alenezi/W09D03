@@ -28,6 +28,10 @@ a simple app to track your tasks with user authentication and authorization usin
 * Home
 * Admin
 ---
+* UML Diagram
+![alt text](https://github.com/Ghadier-Alenezi/W09D03/blob/main/Untitled%20Diagram.drawio.png)
+
+---
 # Server / Backend 
 ## Models
 ### user model
